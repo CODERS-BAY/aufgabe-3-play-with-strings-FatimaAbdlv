@@ -1,54 +1,79 @@
 package application;
 
+import java.util.Arrays;
+
 public class PlayWithStrings {
-	public static void main(String[] args) {
-		System.out.println("Hello String World");
-	}
+    public static void main(String[] args) {
+        System.out.println("Hello String World");
+        String a = "Max";
+        String b = "Mustermann";
+        printInitials(a, b);
 
-	/**
-	 * TODO: print initials
-	 * 
-	 * This method should print out the initials of a name to standard out.
-	 * 
-	 * @param firstname
-	 * @param lastname
-	 */
-	public static void printIntitials(String firstname, String lastname) {
+        String value1 = "race";
+        String value2 = "ca re";
+       if( areAnagrams(value1, value2)){
+           System.out.println("Is anagram");
+       } else {
+           System.out.println("Is not an anagram");
+       }
 
-	}
 
-	/**
-	 * TODO: check for anagrams
-	 * 
-	 * This method should determine if two strings are anagrams or not An anagram is
-	 * a word or a phrase made by transposing the letters of another word or phrase.
-	 * For example, "parliament" is an anagram of "partial men," and "software" is
-	 * an anagram of "swear oft." The program should ignore white space and
-	 * punctuation.
-	 * 
-	 * @param value1
-	 * @param value2
-	 * @return true if the values are anagrams, false otherwise.
-	 */
-	public static boolean areAnagrams(String value1, String value2) {
-		return false;
-	}
+        String value = "Eva can I see bees in a cave?";
 
-	/**
-	 * TODO: palindrone checker
-	 * 
-	 * This method should find out if a string value is a palindrome or not. A
-	 * palindrome is a sequence of characters (can also be a number) which reads the
-	 * same backwards as forwards. Some palindromes are: Anna; wow; Eva can I see
-	 * bees in a cave?
-	 * 
-	 * Upper or lower case should not matter, but keep the white spaces, tabs and
-	 * punctuation in mind.
-	 * 
-	 * @param value
-	 * @return true if it is a palindrome, false otherwise.
-	 */
-	public static boolean isPalindrome(String value) {
-		return false;
-	}
+        if (isPalindrome(value)) {
+            System.out.println("Value is a palindrom");
+
+        } else {
+            System.out.println("Is not a palindrom");
+        }
+    }
+
+    public static void printInitials(String firstname, String lastname) {
+        System.out.println("Initials: " + firstname.charAt(0) + lastname.charAt(0));
+
+    }
+
+    public static boolean areAnagrams(String value1, String value2) {
+        value1 = value1.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        value2 = value2.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        //replaceAll(a,b) ersetzt alles, was nicht Buchstabe (klein- und großBuchstaben (a-z und A-Z)) und
+        //ersetzt es mit nichts "" (wenn " " ersetzt es das mit Leerzeichen)
+        //das ^ ist eine Verneinung. Würden wir alle Groß- und Kleinbuchstaben durch z.B. " " Leerzeichen ersetzt haben wollen,
+        //dann müssten wir ^ weglassen (z.B. [a-zA-Z], " ")
+
+        if (value1.length() == value2.length()) {
+
+            char[] Arr1 = value1.toCharArray();
+            char[] Arr2 = value2.toCharArray();
+            Arrays.sort(Arr1);
+            Arrays.sort(Arr2);
+
+            if (Arrays.equals(Arr1, Arr2)) {
+                return true;
+            }
+
+
+        }
+        return false;
+    }
+
+    public static boolean isPalindrome(String value) {
+        value = value.replaceAll("[^a-zA-Z]", "").toLowerCase();
+
+        int length = value.length();
+        int forward = 0;
+        int backwards = length - 1;
+
+        while (backwards > forward) {
+            char forwardChar = value.charAt(forward++);
+            char backwardsChar = value.charAt(backwards--);
+            if (forwardChar != backwardsChar) {
+                return false;
+            }
+
+        }
+        return true;
+
+
+    }
 }
